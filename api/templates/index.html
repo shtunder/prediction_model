@@ -14,8 +14,8 @@
         <div class="form-row">
 
           <div class="form-group col-md-6">
-            <label for="budget">Бюджет в $</label>
-            <input type="number" id="budget" class="form-control" name="budget" min="100" step="1" placeholder="10000" value="{{ request.form['budget'] }}" required>
+            <label for="author_id">ID Автора (Площадки)</label>
+            <input type="number" id="author_id" class="form-control" name="author_id" min="0" step="1" placeholder="00000" value="{{ request.form['author_id'] }}" required>
           </div>
 
           <div class="form-group col-md-6">
@@ -36,6 +36,29 @@
         </div>
 
 
+{#        <div class="form-row">#}
+{#            <div class="form-group col-md-4">#}
+{#                <label for="video">Имеется ли видео</label>#}
+{#                <input type="number" id="video" class="form-control" name="budget" min="100" step="1" placeholder="10000" value="{{ request.form['has_videos'] }}" required>#}
+{#            </div>#}
+{##}
+{#          <div class="form-group col-md-2 form-check">#}
+{#                <input class="form-check-input" type="radio" name="has_videos" id="flexRadioDefault1" {% if request.form['has_video'] == 'on' %}checked{% endif %}>#}
+{#                <label class="form-check-label" for="flexRadioDefault1">Видео</label>#}
+{#          </div>#}
+{##}
+{#          <div class="form-group col-md-2 form-check">#}
+{#                <input class="form-check-input" type="radio" name="has_images" id="flexRadioDefault1" {% if request.form['has_video'] == 'on' %}checked{% endif %}>#}
+{#                <label class="form-check-label" for="flexRadioDefault1">Изображение</label>#}
+{#          </div>#}
+{##}
+{#          <div class="form-group col-md-2 form-check">#}
+{#                <input class="form-check-input" type="radio" name="is_repost" id="flexRadioDefault1" {% if request.form['is_repost'] == 'on' %}checked{% endif %}>#}
+{#                <label class="form-check-label" for="flexRadioDefault1">Репост</label>#}
+{#          </div>#}
+{#      </div>#}
+
+
         <div class="form-row">
 
           <div class="form-group col-md-12 form-floating">
@@ -48,15 +71,25 @@
 
         <div class="form-row">
 
+{#          <div class="form-group col-md-6">#}
+{#            <label class="control-label" for="create_data">Дата прогноза</label>#}
+{#            <input class="form-control datepicker" id="create_data" name="create_data" type="text" placeholder="%m/%d/%Y %H:%M:%S" value="{{ request.form['create_data'] }}" required>#}
+{#          </div>#}
+
           <div class="form-group col-md-6">
-            <label class="control-label" for="start_date">Начальная дата</label>
-            <input class="form-control datepicker" id="start_date" name="start_date" type="text" placeholder="MM/DD/YYYY" value="{{ request.form['start_date'] }}" required>
+            <label for="hours">На сколько часов сделать прогноз?</label>
+            <input type="number" id="hours" class="form-control" name="hours" min="0" step="1" placeholder="0" value="{{ request.form['hours'] }}" required>
           </div>
 
           <div class="form-group col-md-6">
-            <label class="control-label" for="end_date">Конечная дата</label>
-            <input class="form-control datepicker" id="end_date" name="end_date" type="text" placeholder="MM/DD/YYYY" value="{{ request.form['end_date'] }}" required>
+            <label for="author_subscribers">Число подписчиков</label>
+            <input type="number" id="author_subscribers" class="form-control" name="author_subscribers" min="0" step="1" placeholder="100" value="{{ request.form['author_subscribers'] }}" required>
           </div>
+
+{#          <div class="form-group col-md-6">#}
+{#            <label class="control-label" for="end_date">Конечная дата</label>#}
+{#            <input class="form-control datepicker" id="end_date" name="end_date" type="text" placeholder="MM/DD/YYYY" value="{{ request.form['end_date'] }}" required>#}
+{#          </div>#}
 
         </div>
 
@@ -102,6 +135,27 @@
         </div>
 
 
+        <p>Дополнительные параметры</p>
+        <div class="form-row">
+
+          <div class="form-group form-check form-check-inline col-md">
+            <input class="form-check-input" id="video" name="has_videos" type="checkbox" {% if request.form['has_videos'] == 'on' %}checked{% endif %}>
+            <label class="form-check-label" for="video">Есть ли видео</label>
+          </div>
+
+          <div class="form-group form-check form-check-inline col-md">
+            <input class="form-check-input" id="images" name="has_images" type="checkbox" {% if request.form['has_images'] == 'on' %}checked{% endif %}>
+            <label class="form-check-label" for="images">Есть ли фотографии</label>
+          </div>
+
+          <div class="form-group form-check form-check-inline col-md">
+            <input class="form-check-input" id="repost" name="is_repost" type="checkbox" {% if request.form['is_repost'] == 'on' %}checked{% endif %}>
+            <label class="form-check-label" for="repost">Есть ли репост</label>
+          </div>
+
+        </div>
+
+
 {#        <div class="form-row">#}
 {#          <div class="form-group col-md-6">#}
 {#            <label for="likes">Facebook page likes (social media followers)</label>#}
@@ -136,26 +190,26 @@
         </div>
 
 
-        <div class="form-row">
-          <div class="col-md-6">
-            <label for="shop">Автор (Площадка)</label>
-          </div>
-        </div>
-
-        <div class="form-row">
-          <div class="form-group col-md-6">
-            <select class="form-control" id="shop" name="shop">
-              <option {% if request.form['shop'] == 'Eventbrite' %}selected="selected"{% endif %}>Eventbrite</option>
-              <option {% if request.form['shop'] == 'Eventim' %}selected="selected"{% endif %}>Eventim</option>
-              <option {% if request.form['shop'] == 'Ticketmaster' %}selected="selected"{% endif %}>Ticketmaster</option>
-              <option {% if request.form['shop'] == 'Other' %}selected="selected"{% endif %}>Other</option>
-            </select>
-          </div>
-          <!-- <div class="form-group form-check form-check-inline col-md">
-            <input class="form-check-input" id="tracking" name="tracking" type="checkbox" {% if request.form['tracking'] == 'on' %}checked{% endif %}>
-            <label class="form-check-label" for="tracking">Shop enabled for purchase tracking</label>
-          </div> -->
-        </div>
+{#        <div class="form-row">#}
+{#          <div class="col-md-6">#}
+{#            <label for="shop">Автор (Площадка)</label>#}
+{#          </div>#}
+{#        </div>#}
+{##}
+{#        <div class="form-row">#}
+{#          <div class="form-group col-md-6">#}
+{#            <select class="form-control" id="shop" name="shop">#}
+{#              <option {% if request.form['shop'] == 'Eventbrite' %}selected="selected"{% endif %}>Eventbrite</option>#}
+{#              <option {% if request.form['shop'] == 'Eventim' %}selected="selected"{% endif %}>Eventim</option>#}
+{#              <option {% if request.form['shop'] == 'Ticketmaster' %}selected="selected"{% endif %}>Ticketmaster</option>#}
+{#              <option {% if request.form['shop'] == 'Other' %}selected="selected"{% endif %}>Other</option>#}
+{#            </select>#}
+{#          </div>#}
+{#          <!-- <div class="form-group form-check form-check-inline col-md">#}
+{#            <input class="form-check-input" id="tracking" name="tracking" type="checkbox" {% if request.form['tracking'] == 'on' %}checked{% endif %}>#}
+{#            <label class="form-check-label" for="tracking">Shop enabled for purchase tracking</label>#}
+{#          </div> -->#}
+{#        </div>#}
 
       </div>
 
@@ -169,35 +223,36 @@
 <hr>
 <br>
 
-<div>
-  <p>Предполагаемые результаты:</p>
-  <div id="results">
-    <table class="table">
-      <thead>
-          <tr>
-              <th scope="col"><center>Просмотры</center></th>
-              <th scope="col"><center>Клики</center></th>
-              <th scope="col"><center>Покупки</center></th>
-          </tr>
-      </thead>
-      <tbody>
-          <tr>
-              <td><center>{{ impressions_low }} - {{ impressions_high }}</center></td>
-              <td><center>{{ clicks_low }} - {{ clicks_high }}</center></td>
-              <td><center>{{ purchases_low }} - {{ purchases_high }}</center></td>
-          </tr>
-      </tbody>
-    </table>
-  </div>
-</div>
+{#<div>#}
+{#  <p>Предполагаемые результаты:</p>#}
+{#  <div id="results">#}
+{#    <table class="table">#}
+{#      <thead>#}
+{#          <tr>#}
+{#              <th scope="col"><center>Просмотры</center></th>#}
+{#              <th scope="col"><center>Клики</center></th>#}
+{#              <th scope="col"><center>Покупки</center></th>#}
+{#          </tr>#}
+{#      </thead>#}
+{#      <tbody>#}
+{#          <tr>#}
+{#              <td><center>{{ impressions_low }} - {{ impressions_high }}</center></td>#}
+{#              <td><center>{{ clicks_low }} - {{ clicks_high }}</center></td>#}
+{#              <td><center>{{ purchases_low }} - {{ purchases_high }}</center></td>#}
+{#          </tr>#}
+{#      </tbody>#}
+{#    </table>#}
+{#  </div>#}
+{#</div>#}
 
-
+{#<div style="margin-left: auto; margin-right: auto; width: 600px">#}
     <h1><center>Потенциальный охват<center></h1>
     <!-- bar chart canvas element -->
     <canvas id="myChart" width="600" height="400"></canvas>
-    <p id="caption"><br>
+    <p id="caption" style="text-align: center"><br>
         График прогнозирует потенциальный охват
     </p>
+{#</div>#}
 
     <script>
       // Global parameters:
