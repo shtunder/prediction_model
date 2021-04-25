@@ -1,0 +1,265 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container">
+  <h4><center>Система мониторинга СМИ и соцсетей</center></h4>
+  <div>
+    <p>
+      <br>Охватывает более 100 000 источников (традиционные медиа, ВКонтакте, Facebook, Twitter, YouTube, Instagram, Яндекс.Дзен, Одноклассники, отзывы и блоги)
+    </p>
+    <form method="POST">
+      <div id="form_inputs">
+
+
+        <div class="form-row">
+
+          <div class="form-group col-md-6">
+            <label for="budget">Бюджет в $</label>
+            <input type="number" id="budget" class="form-control" name="budget" min="100" step="1" placeholder="10000" value="{{ request.form['budget'] }}" required>
+          </div>
+
+          <div class="form-group col-md-6">
+            <label for="region">Категория</label>
+            <select class="form-control" id="category" name="category">
+              <option {% if request.form['category'] == 'Concert' %}selected="selected"{% endif %}>Concert</option>
+              <option {% if request.form['category'] == 'Comedy' %}selected="selected"{% endif %}>Comedy</option>
+              <option {% if request.form['category'] == 'Festival' %}selected="selected"{% endif %}>Festival</option>
+              <option {% if request.form['category'] == 'Theatre' %}selected="selected"{% endif %}>Theatre</option>
+              <option {% if request.form['category'] == 'Conference' %}selected="selected"{% endif %}>Conference</option>
+              <option {% if request.form['category'] == 'Sports' %}selected="selected"{% endif %}>Sports</option>
+              <option {% if request.form['category'] == 'Streaming' %}selected="selected"{% endif %}>Streaming</option>
+              <option {% if request.form['category'] == 'E-Commerce' %}selected="selected"{% endif %}>E-Commerce</option>
+              <option {% if request.form['category'] == 'Other' %}selected="selected"{% endif %}>Other</option>
+            </select>
+          </div>
+
+        </div>
+
+
+        <div class="form-row">
+
+          <div class="form-group col-md-12 form-floating">
+              <label for="floatingTextarea">Рекламный текст</label>
+              <textarea id="floatingTextarea" name="text" class="form-control" placeholder="Введите рекламный текст"></textarea>
+          </div>
+
+        </div>
+
+
+        <div class="form-row">
+
+          <div class="form-group col-md-6">
+            <label class="control-label" for="start_date">Начальная дата</label>
+            <input class="form-control datepicker" id="start_date" name="start_date" type="text" placeholder="MM/DD/YYYY" value="{{ request.form['start_date'] }}" required>
+          </div>
+
+          <div class="form-group col-md-6">
+            <label class="control-label" for="end_date">Конечная дата</label>
+            <input class="form-control datepicker" id="end_date" name="end_date" type="text" placeholder="MM/DD/YYYY" value="{{ request.form['end_date'] }}" required>
+          </div>
+
+        </div>
+
+
+{#        <div class="form-row">#}
+{##}
+{#          <div class="form-group col-md-6">#}
+{#            <label for="budget">Sales capacity (max. purchases)</label>#}
+{#            <input class="form-control" id="capacity" name="capacity" type="number" min="1" step="1" placeholder="10000" value="{{ request.form['capacity'] }}" required>#}
+{#          </div>#}
+{##}
+{#          <div class="form-group col-md-6">#}
+{#            <label for="budget">Average purchase price in €</label>#}
+{#            <input class="form-control" id="price" name="price" type="number" min="0" step="1" placeholder="10" value="{{ request.form['price'] }}" required>#}
+{#          </div>#}
+{##}
+{#        </div>#}
+
+
+        <p>Рекламные площадки</p>
+        <div class="form-row">
+
+          <div class="form-group form-check form-check-inline col-md">
+            <input class="form-check-input" id="facebook" name="facebook" type="checkbox" {% if request.form['facebook'] == 'on' %}checked{% endif %}>
+            <label class="form-check-label" for="facebook">Facebook</label>
+          </div>
+
+          <div class="form-group form-check form-check-inline col-md">
+            <input class="form-check-input" id="instagram" name="instagram" type="checkbox" {% if request.form['instagram'] == 'on' %}checked{% endif %}>
+            <label class="form-check-label" for="instagram">Instagram</label>
+          </div>
+
+          <div class="form-group form-check form-check-inline col-md">
+            <input class="form-check-input" id="vk" name="vk" type="checkbox" {% if request.form['vk'] == 'on' %}checked{% endif %}>
+            <label class="form-check-label" for="vk">ВКонтакте</label>
+          </div>
+
+          <div class="form-group form-check form-check-inline col-md">
+            <input class="form-check-input" id="telegram" name="telegram" type="checkbox" {% if request.form['telegram'] == 'on' %}checked{% endif %}>
+            <label class="form-check-label" for="telegram">Telegram</label>
+          </div>
+
+        </div>
+
+
+{#        <div class="form-row">#}
+{#          <div class="form-group col-md-6">#}
+{#            <label for="likes">Facebook page likes (social media followers)</label>#}
+{#            <input class="form-control" id="likes" name="likes" type="number" min="0" step="1" placeholder="10000" value="{{ request.form['likes'] }}" required>#}
+{#          </div>#}
+{#        </div>#}
+
+
+        <div class="form-row">
+          <div class="col-md-6">
+            <label for="region">Регион</label>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <select class="form-control" id="region" name="region">
+              <option {% if request.form['region'] == 'Россия' %}selected="selected"{% endif %}>Россия</option>
+              <option {% if request.form['region'] == 'Канада' %}selected="selected"{% endif %}>Канада</option>
+              <option {% if request.form['region'] == 'Англия' %}selected="selected"{% endif %}>Англия</option>
+              <option {% if request.form['region'] == 'США' %}selected="selected"{% endif %}>США</option>
+              <option {% if request.form['region'] == 'Германия' %}selected="selected"{% endif %}>Германия</option>
+              <option {% if request.form['region'] == 'Австрия' %}selected="selected"{% endif %}>Австрия</option>
+              <option {% if request.form['region'] == 'Швейцария' %}selected="selected"{% endif %}>Швейцария</option>
+              <option {% if request.form['region'] == 'Другой' %}selected="selected"{% endif %}>Другой</option>
+            </select>
+          </div>
+          <!-- <div class="form-group form-check form-check-inline col-md">
+            <input class="form-check-input" id="targets" name="targets" type="checkbox" {% if request.form['targets'] == 'on' %}checked{% endif %}>
+            <label class="form-check-label" for="targets">Multiple targets (e.g. cities)</label>
+          </div> -->
+        </div>
+
+
+        <div class="form-row">
+          <div class="col-md-6">
+            <label for="shop">Автор (Площадка)</label>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <select class="form-control" id="shop" name="shop">
+              <option {% if request.form['shop'] == 'Eventbrite' %}selected="selected"{% endif %}>Eventbrite</option>
+              <option {% if request.form['shop'] == 'Eventim' %}selected="selected"{% endif %}>Eventim</option>
+              <option {% if request.form['shop'] == 'Ticketmaster' %}selected="selected"{% endif %}>Ticketmaster</option>
+              <option {% if request.form['shop'] == 'Other' %}selected="selected"{% endif %}>Other</option>
+            </select>
+          </div>
+          <!-- <div class="form-group form-check form-check-inline col-md">
+            <input class="form-check-input" id="tracking" name="tracking" type="checkbox" {% if request.form['tracking'] == 'on' %}checked{% endif %}>
+            <label class="form-check-label" for="tracking">Shop enabled for purchase tracking</label>
+          </div> -->
+        </div>
+
+      </div>
+
+      <button type="submit" class="btn btn-success">Submit</button>
+
+    </form>
+  </div>
+</div>
+
+<br>
+<hr>
+<br>
+
+<div>
+  <p>Предполагаемые результаты:</p>
+  <div id="results">
+    <table class="table">
+      <thead>
+          <tr>
+              <th scope="col"><center>Просмотры</center></th>
+              <th scope="col"><center>Клики</center></th>
+              <th scope="col"><center>Покупки</center></th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr>
+              <td><center>{{ impressions_low }} - {{ impressions_high }}</center></td>
+              <td><center>{{ clicks_low }} - {{ clicks_high }}</center></td>
+              <td><center>{{ purchases_low }} - {{ purchases_high }}</center></td>
+          </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+    <h1><center>Потенциальный охват<center></h1>
+    <!-- bar chart canvas element -->
+    <canvas id="myChart" width="600" height="400"></canvas>
+    <p id="caption"><br>
+        График прогнозирует потенциальный охват
+    </p>
+
+    <script>
+      // Global parameters:
+      // do not resize the chart canvas when its container does (keep at 600x400px)
+      Chart.defaults.global.responsive = true;
+
+      // define the chart data
+      var chartData = {
+        labels : [{% for item in labels %}
+                   "{{item}}",
+                  {% endfor %}],
+        datasets : [{
+            label: '{{ legend }}',
+            fill: true,
+            lineTension: 0.1,
+            backgroundColor: "rgba(75,192,192,0.4)",
+            borderColor: "rgba(75,192,192,1)",
+            borderCapStyle: 'butt',
+            borderDash: [],
+            borderDashOffset: 0.0,
+            borderJoinStyle: 'miter',
+            pointBorderColor: "rgba(75,192,192,1)",
+            pointBackgroundColor: "#fff",
+            pointBorderWidth: 1,
+            pointHoverRadius: 5,
+            pointHoverBackgroundColor: "rgba(75,192,192,1)",
+            pointHoverBorderColor: "rgba(220,220,220,1)",
+            pointHoverBorderWidth: 2,
+            pointRadius: 1,
+            pointHitRadius: 10,
+            data : [{% for item in values %}
+                      {{item}},
+                    {% endfor %}],
+            spanGaps: false
+        }]
+      }
+
+      // get chart canvas
+      var ctx = document.getElementById("myChart").getContext("2d");
+
+      // create the chart using the chart canvas
+      var myChart = new Chart(ctx, {
+        type: 'line',
+        data: chartData,
+      });
+    </script>
+
+
+<script>
+  $(document).ready(function(){
+    var options={
+      format: 'mm/dd/yyyy',
+      autoclose: true
+    };
+    $('.datepicker').datepicker(options);
+  })
+</script>
+
+{% if scroll %}
+<script>
+  document.getElementById('{{ scroll }}').scrollIntoView();
+</script>
+{% endif %}
+
+{% endblock %}
